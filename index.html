@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Arinco - Javier Gonzales</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        :root {
+            --surface-color: rgba(25, 25, 25, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --gold-accent: #d4af37;
+            --gold-accent-light: #f5d77f;
+            --text-primary: #ffffff;
+            --text-secondary: #c4c4c4;
+            --glass-blur: blur(20px);
+            --whatsapp-color: #25D366;
+            --facebook-color: #1877F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050505;
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Center the card vertically */
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background-image:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)),
+                url('image%20copy.png');
+            /* Used URL encoding */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: slow-pan 40s ease-in-out infinite alternate;
+        }
+
+        @keyframes slow-pan {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.1) translate(-2%, -2%);
+            }
+        }
+
+        /* Luxury Card Container */
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 2rem 1rem;
+            padding: 3rem 2rem 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(20, 20, 20, 0.65);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1.5px solid rgba(212, 175, 55, 0.5);
+            /* Gold rim on top */
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8),
+                inset 0 1px 15px rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.15s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.45s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.6s;
+        }
+
+        /* The Missing Logo Fixed */
+        .brand-logo-container {
+            width: 100%;
+            max-width: 260px;
+            margin: -1rem auto 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.2));
+            animation: float-logo 5s ease-in-out infinite;
+        }
+
+        @keyframes float-logo {
+            0% {
+                transform: translateY(0px);
+                filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.2));
+            }
+
+            50% {
+                transform: translateY(-5px);
+                filter: drop-shadow(0 12px 25px rgba(212, 175, 55, 0.4));
+            }
+
+            100% {
+                transform: translateY(0px);
+                filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.2));
+            }
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            width: 100%;
+            position: relative;
+        }
+
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--gold-accent-light);
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Services Section */
+        .services-section {
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-item:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.1));
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .service-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.2rem;
+            color: var(--gold-accent-light);
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            width: 100%;
+            margin-bottom: 3.5rem;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold-accent-light);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        .gallery-container {
+            width: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0.5rem 0 1rem 0;
+            margin: 0 -0.5rem;
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 1.2rem;
+            padding: 0 0.5rem;
+        }
+
+        .gallery-track img {
+            height: 240px;
+            width: auto;
+            min-width: 180px;
+            border-radius: 18px;
+            object-fit: cover;
+            scroll-snap-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .gallery-track img:active {
+            transform: scale(0.97);
+            border-color: var(--gold-accent);
+        }
+
+        /* App-like Grid Links Section */
+        .links-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-full {
+            grid-column: 1 / -1;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1.2rem 1rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Primary Button (WhatsApp) */
+        .btn-whatsapp {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.3), rgba(18, 140, 126, 0.6));
+            border: 1px solid rgba(37, 211, 102, 0.5);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
+            color: #fff;
+        }
+
+        .btn-whatsapp i {
+            color: #fff;
+        }
+
+        .btn-whatsapp:hover,
+        .btn-whatsapp:active {
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.5), rgba(18, 140, 126, 0.8));
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            border-color: #25D366;
+        }
+
+        /* Facebook Button */
+        .btn-facebook {
+            background: linear-gradient(135deg, rgba(24, 119, 242, 0.3), rgba(14, 89, 186, 0.6));
+            border: 1px solid rgba(24, 119, 242, 0.5);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.2);
+            color: #fff;
+        }
+
+        .btn-facebook i {
+            color: #fff;
+        }
+
+        .btn-facebook:hover,
+        .btn-facebook:active {
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, rgba(24, 119, 242, 0.5), rgba(14, 89, 186, 0.8));
+            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.4);
+            border-color: #1877F2;
+        }
+
+        /* Standard Glass Button */
+        .btn-glass:hover,
+        .btn-glass:active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold-accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .btn-glass i {
+            color: var(--gold-accent-light);
+        }
+
+        /* Secondary Button (Save Contact) */
+        .btn-secondary {
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.25);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:active {
+            color: #fff;
+            border-color: var(--gold-accent-light);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .footer span {
+            color: var(--gold-accent-light);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 
+          Usando URL encoding seguro (%20) para los espacios del archivo. 
+          Esto garantiza que cargue perfectamente el logo.
+        -->
+        <div class="brand-logo-container animate-up">
+            <img src="image%20copy%204.png" alt="ARINCO Grupo Constructor" class="brand-logo">
+        </div>
+
+        <!-- Header / Name -->
+        <header class="header-section animate-up delay-1">
+            <h1>Javier Gonzales</h1>
+            <p class="subtitle">Lic. Arquitectura</p>
+        </header>
+
+        <!-- Services Section -->
+        <div class="services-section animate-up delay-2">
+            <div class="services-list">
+                <div class="service-item">
+                    <div class="service-icon"><i class='bx bx-buildings'></i></div>
+                    <div class="service-text">PROYECTO Y CONSTRUCCIÓN</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class='bx bx-home-alt-2'></i></div>
+                    <div class="service-text">AMPLIACIONES Y REMODELACIONES</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class='bx bx-wrench'></i></div>
+                    <div class="service-text">MANTENIMIENTO DE EDIFICIOS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="gallery-section animate-up delay-3">
+            <h2 class="gallery-title">NUESTROS PROYECTOS</h2>
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <img src="image%20copy.png" alt="Proyecto Destacado 1">
+                    <img src="image.png" alt="Proyecto Destacado 2">
+                    <img src="image%20copy%202.png" alt="Proyecto Destacado 3">
+                    <img src="image%20copy%203.png" alt="Proyecto Destacado 4">
+                </div>
+            </div>
+        </div>
+
+        <!-- App-like Grid Buttons -->
+        <div class="links-grid animate-up delay-4">
+
+            <!-- WhatsApp (Full Width) -->
+            <a href="https://wa.me/526563128628" target="_blank" rel="noopener noreferrer"
+                class="btn btn-whatsapp btn-full">
+                <i class='bx bxl-whatsapp'></i>
+                <span>WHATSAPP</span>
+            </a>
+
+            <!-- Facebook (Full Width) -->
+            <a href="https://www.facebook.com/profile.php?id=61572922057205" target="_blank" rel="noopener noreferrer"
+                class="btn btn-facebook btn-full">
+                <i class='bx bxl-facebook-circle'></i>
+                <span>FACEBOOK</span>
+            </a>
+
+            <!-- Call (Half Width) -->
+            <a href="tel:+526563128628" class="btn btn-glass">
+                <i class='bx bx-phone-call'></i>
+                <span>LLAMAR</span>
+            </a>
+
+            <!-- Email (Half Width) -->
+            <a href="mailto:javigoqui@gmail.com" class="btn btn-glass">
+                <i class='bx bx-envelope'></i>
+                <span>CORREO</span>
+            </a>
+
+            <!-- Save Contact (Full Width Secondary) -->
+            <a href="#" class="btn btn-secondary btn-full" id="saveContact">
+                <i class='bx bx-user-plus'></i>
+                <span>GUARDAR CONTACTO</span>
+            </a>
+
+        </div>
+
+        <div class="footer animate-up delay-4">
+            &copy; 2026 <span>ARINCO GRUPO CONSTRUCTOR</span><br>Todos los derechos reservados.
+        </div>
+    </div>
+
+    <!-- Script to dynamically generate vCard -->
+    <script>
+        document.getElementById('saveContact').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Javier Gonzales
+ORG:ARINCO Grupo Constructor
+TITLE:Lic. Arquitectura
+TEL;TYPE=WORK,VOICE:+526563128628
+TEL;TYPE=CELL,VOICE:+526563128628
+EMAIL;TYPE=PREF,INTERNET:javigoqui@gmail.com
+URL;TYPE=FACEBOOK:https://www.facebook.com/profile.php?id=61572922057205
+URL;TYPE=WHATSAPP:https://wa.me/526563128628
+END:VCARD`;
+
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Javier_Gonzales_Arinco.vcf';
+            document.body.appendChild(a);
+            a.click();
+
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+
+</html>
