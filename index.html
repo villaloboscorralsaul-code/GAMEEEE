@@ -9,24 +9,28 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
 
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Vanilla Tilt for 3D effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <style>
         :root {
-            --surface-color: rgba(25, 25, 25, 0.4);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --gold-accent: #d4af37;
-            --gold-accent-light: #f5d77f;
-            --text-primary: #ffffff;
-            --text-secondary: #c4c4c4;
-            --glass-blur: blur(20px);
-            --whatsapp-color: #25D366;
-            --facebook-color: #1877F2;
+            --gold-primary: #d4af37;
+            --gold-light: #f9e596;
+            --gold-dark: #997a15;
+            --bg-dark: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.7);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --glass-border: rgba(212, 175, 55, 0.3);
+            --glass-blur: blur(25px);
         }
 
         * {
@@ -36,151 +40,117 @@
         }
 
         body {
-            background-color: #050505;
-            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            /* Center the card vertically */
-            position: relative;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 0;
         }
 
         /* Ambient Animated Background */
-        body::before {
-            content: '';
+        #particles-js {
             position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            background-image:
-                linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)),
-                url('image%20copy.png');
-            /* Used URL encoding */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(5, 5, 5, 0.98)), url('image%20copy.png');
             background-size: cover;
             background-position: center;
-            z-index: -1;
-            animation: slow-pan 40s ease-in-out infinite alternate;
         }
 
-        @keyframes slow-pan {
-            0% {
-                transform: scale(1) translate(0, 0);
-            }
-
-            100% {
-                transform: scale(1.1) translate(-2%, -2%);
-            }
+        @keyframes background-drift {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-3%, -3%); }
         }
 
-        /* Luxury Card Container */
-        .container {
+        /* Top Logo Placement */
+        .top-logo-container {
             width: 100%;
-            max-width: 480px;
-            margin: 2rem 1rem;
-            padding: 3rem 2rem 4rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(20, 20, 20, 0.65);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1.5px solid rgba(212, 175, 55, 0.5);
-            /* Gold rim on top */
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8),
-                inset 0 1px 15px rgba(255, 255, 255, 0.05);
-            z-index: 1;
+            max-width: 280px;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            mix-blend-mode: screen; /* Fix stacking context issue */
+            /* Filter removed because drop-shadow on a solid image creates a rectangular halo */
+            animation: slide-down 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, float-logo 6s ease-in-out infinite 1s;
+            z-index: 10;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-up {
-            opacity: 0;
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        .delay-1 {
-            animation-delay: 0.15s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.3s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.45s;
-        }
-
-        .delay-4 {
-            animation-delay: 0.6s;
-        }
-
-        /* The Missing Logo Fixed */
-        .brand-logo-container {
-            width: 100%;
-            max-width: 260px;
-            margin: -1rem auto 2rem auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95); /* Forzamos fondo blanco por si el logo es oscuro sin transparencia */
-            padding: 1.5rem;
-            border-radius: 20px;
-            z-index: 100; /* Aseguramos que esté por encima de todo */
-            position: relative;
-            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.4));
-            animation: float-logo 5s ease-in-out infinite;
-        }
-
-        @keyframes float-logo {
-            0% {
-                transform: translateY(0px);
-                filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.2));
-            }
-
-            50% {
-                transform: translateY(-5px);
-                filter: drop-shadow(0 12px 25px rgba(212, 175, 55, 0.6));
-            }
-
-            100% {
-                transform: translateY(0px);
-                filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.2));
-            }
-        }
-
-        .brand-logo {
+        .top-logo-container img {
             width: 100%;
             height: auto;
             object-fit: contain;
-            position: relative;
-            z-index: 101;
             display: block;
+            filter: grayscale(100%) contrast(500%);
         }
 
-        /* Header Section */
+        @keyframes slide-down {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float-logo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Main Profile Card */
+        .profile-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 2px solid var(--gold-primary);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 20px rgba(255, 255, 255, 0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fade-in-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .header-section {
             text-align: center;
             margin-bottom: 2.5rem;
-            width: 100%;
             position: relative;
+        }
+
+        .header-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .header-section .subtitle {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
         }
 
         .header-section::after {
@@ -189,147 +159,115 @@
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 50px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            background: var(--gold-primary);
+            box-shadow: 0 0 10px var(--gold-primary);
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-        }
-
-        .subtitle {
-            font-size: 0.95rem;
-            color: var(--gold-accent-light);
-            font-weight: 600;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Services Section */
-        .services-section {
+        /* Services */
+        .services-wrapper {
             width: 100%;
             margin-bottom: 3rem;
-        }
-
-        .services-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
         }
 
         .service-item {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.4));
+            border: 1px solid rgba(255,255,255,0.05);
             padding: 1.2rem;
-            border-radius: 18px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+            cursor: default;
         }
 
         .service-item:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.1));
-            transform: translateY(-3px) scale(1.02);
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+            transform: translateY(-3px);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.6));
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
         .service-icon {
             width: 45px;
             height: 45px;
-            border-radius: 12px;
             background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 1.2rem;
-            color: var(--gold-accent-light);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin-right: 1rem;
             flex-shrink: 0;
-            border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
         }
 
         .service-text {
             font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-weight: 600;
             letter-spacing: 1px;
-            line-height: 1.4;
+            color: #ececec;
         }
 
-        /* Gallery Section */
-        .gallery-section {
+        /* Gallery */
+        .gallery-wrapper {
             width: 100%;
-            margin-bottom: 3.5rem;
+            margin-bottom: 3rem;
         }
 
         .gallery-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--gold-accent-light);
-            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            color: var(--gold-light);
             text-align: center;
-            letter-spacing: 3px;
-            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
         }
 
-        .gallery-container {
-            width: 100%;
+        .gallery-scroll {
+            display: flex;
+            gap: 1rem;
             overflow-x: auto;
+            padding: 0.5rem 0 1.5rem 0;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding: 0.5rem 0 1rem 0;
-            margin: 0 -0.5rem;
         }
 
-        .gallery-container::-webkit-scrollbar {
+        .gallery-scroll::-webkit-scrollbar {
             display: none;
         }
 
-        .gallery-track {
-            display: flex;
-            gap: 1.2rem;
-            padding: 0 0.5rem;
-        }
-
-        .gallery-track img {
-            height: 240px;
+        .gallery-scroll img {
+            height: 220px;
             width: auto;
-            min-width: 180px;
-            border-radius: 18px;
+            min-width: 160px;
+            border-radius: 16px;
             object-fit: cover;
             scroll-snap-align: center;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            filter: brightness(0.85);
         }
 
-        .gallery-track img:active {
-            transform: scale(0.97);
-            border-color: var(--gold-accent);
+        .gallery-scroll img:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+            border-color: var(--gold-primary);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
         }
 
-        /* App-like Grid Links Section */
-        .links-grid {
+        /* Buttons Grid */
+        .action-grid {
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-        }
-
-        .btn-full {
-            grid-column: 1 / -1;
         }
 
         .btn {
@@ -337,227 +275,264 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 1.2rem 1rem;
-            border-radius: 16px;
+            padding: 1.2rem;
+            border-radius: 14px;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 1.5px;
+            color: var(--text-main);
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-full {
+            grid-column: 1 / -1;
         }
 
         .btn i {
             font-size: 1.5rem;
         }
 
-        /* Primary Button (WhatsApp) */
-        .btn-whatsapp {
-            background: linear-gradient(135deg, rgba(37, 211, 102, 0.3), rgba(18, 140, 126, 0.6));
-            border: 1px solid rgba(37, 211, 102, 0.5);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
-            color: #fff;
+        /* Specific Button Styles */
+        .btn-wa {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            border: none;
         }
-
-        .btn-whatsapp i {
-            color: #fff;
-        }
-
-        .btn-whatsapp:hover,
-        .btn-whatsapp:active {
-            transform: translateY(-4px);
-            background: linear-gradient(135deg, rgba(37, 211, 102, 0.5), rgba(18, 140, 126, 0.8));
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            border-color: #25D366;
-        }
-
-        /* Facebook Button */
-        .btn-facebook {
-            background: linear-gradient(135deg, rgba(24, 119, 242, 0.3), rgba(14, 89, 186, 0.6));
-            border: 1px solid rgba(24, 119, 242, 0.5);
-            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.2);
-            color: #fff;
-        }
-
-        .btn-facebook i {
-            color: #fff;
-        }
-
-        .btn-facebook:hover,
-        .btn-facebook:active {
-            transform: translateY(-4px);
-            background: linear-gradient(135deg, rgba(24, 119, 242, 0.5), rgba(14, 89, 186, 0.8));
-            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.4);
-            border-color: #1877F2;
-        }
-
-        /* Maps Button */
-        .btn-maps {
-            background: linear-gradient(135deg, rgba(234, 67, 53, 0.3), rgba(179, 20, 18, 0.6));
-            border: 1px solid rgba(234, 67, 53, 0.5);
-            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.2);
-            color: #fff;
-        }
-
-        .btn-maps i {
-            color: #fff;
-        }
-
-        .btn-maps:hover,
-        .btn-maps:active {
-            transform: translateY(-4px);
-            background: linear-gradient(135deg, rgba(234, 67, 53, 0.5), rgba(179, 20, 18, 0.8));
-            box-shadow: 0 10px 25px rgba(234, 67, 53, 0.4);
-            border-color: #EA4335;
-        }
-
-        /* Standard Glass Button */
-        .btn-glass:hover,
-        .btn-glass:active {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--gold-accent-light);
+        .btn-wa:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
         }
 
-        .btn-glass i {
-            color: var(--gold-accent-light);
+        .btn-fb {
+            background: linear-gradient(135deg, #1877F2, #0E59BA);
+            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
+            border: none;
+        }
+        .btn-fb:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
         }
 
-        /* Secondary Button (Save Contact) */
-        .btn-secondary {
-            background: transparent;
-            border: 1px dashed rgba(255, 255, 255, 0.25);
-            color: var(--text-secondary);
+        .btn-map {
+            background: linear-gradient(135deg, #EA4335, #B31412);
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+            border: none;
+        }
+        .btn-map:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.5);
         }
 
-        .btn-secondary:hover,
-        .btn-secondary:active {
-            color: #fff;
-            border-color: var(--gold-accent-light);
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .btn-glass:hover {
             background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            color: var(--gold-light);
+        }
+        .btn-glass:hover i {
+            color: var(--gold-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            color: var(--text-main);
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-3px);
         }
 
         /* Footer */
         .footer {
-            margin-top: 3.5rem;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            margin-top: 3rem;
             text-align: center;
-            letter-spacing: 1.5px;
-            opacity: 0.8;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+        .footer span {
+            color: var(--gold-primary);
+            font-weight: 600;
         }
 
-        .footer span {
-            color: var(--gold-accent-light);
-            font-weight: 700;
+        /* Lightbox CSS */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 12px;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .lightbox.active img {
+            transform: scale(1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover {
+            color: var(--gold-primary);
+        }
+        .gallery-scroll img { cursor: pointer; }
+
+        /* Typewriter Cursor */
+        .subtitle {
+            border-right: 2px solid var(--gold-light);
+            padding-right: 5px;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        /* Media Queries */
+        @media (max-width: 400px) {
+            .header-section h1 { font-size: 2rem; }
+            .action-grid { grid-template-columns: 1fr; }
+            .btn-glass { grid-column: 1 / -1; }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <!-- 
-          Usando URL encoding seguro (%20) para los espacios del archivo. 
-          Esto garantiza que cargue perfectamente el logo.
-        -->
-        <div class="brand-logo-container animate-up">
-            <img src="logo.png" alt="ARINCO Grupo Constructor" class="brand-logo">
-        </div>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
 
-        <!-- Header / Name -->
-        <header class="header-section animate-up delay-1">
+    <!-- Logo moved to the absolute top, outside the main card -->
+    <div class="top-logo-container">
+        <img src="logo.png" alt="ARINCO Grupo Constructor">
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="profile-card" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.15">
+        
+        <header class="header-section">
             <h1>Arq. Javier Gonzalez</h1>
-
+            <div class="subtitle" id="typewriter-text"></div>
         </header>
 
-        <!-- Services Section -->
-        <div class="services-section animate-up delay-2">
-            <div class="services-list">
-                <div class="service-item">
-                    <div class="service-icon"><i class='bx bx-buildings'></i></div>
-                    <div class="service-text">PROYECTO Y CONSTRUCCIÓN</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class='bx bx-home-alt-2'></i></div>
-                    <div class="service-text">AMPLIACIONES Y REMODELACIONES</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class='bx bx-wrench'></i></div>
-                    <div class="service-text">MANTENIMIENTO DE EDIFICIOS</div>
-                </div>
+        <div class="services-wrapper">
+            <div class="service-item">
+                <div class="service-icon"><i class='bx bx-buildings'></i></div>
+                <div class="service-text">PROYECTO Y CONSTRUCCIÓN</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon"><i class='bx bx-home-alt-2'></i></div>
+                <div class="service-text">AMPLIACIONES Y REMODELACIONES</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon"><i class='bx bx-wrench'></i></div>
+                <div class="service-text">MANTENIMIENTO DE EDIFICIOS</div>
             </div>
         </div>
 
-        <!-- Image Gallery -->
-        <div class="gallery-section animate-up delay-3">
+        <div class="gallery-wrapper">
             <h2 class="gallery-title">NUESTROS PROYECTOS</h2>
-            <div class="gallery-container">
-                <div class="gallery-track">
-                    <img src="image%20copy.png" alt="Proyecto Destacado 1">
-                    <img src="image.png" alt="Proyecto Destacado 2">
-                    <img src="image%20copy%202.png" alt="Proyecto Destacado 3">
-                    <img src="image%20copy%203.png" alt="Proyecto Destacado 4">
-                </div>
+            <div class="gallery-scroll">
+                <img src="image%20copy.png" alt="Proyecto 1" class="gallery-img">
+                <img src="image.png" alt="Proyecto 2" class="gallery-img">
+                <img src="image%20copy%202.png" alt="Proyecto 3" class="gallery-img">
+                <img src="image%20copy%203.png" alt="Proyecto 4" class="gallery-img">
             </div>
         </div>
 
-        <!-- App-like Grid Buttons -->
-        <div class="links-grid animate-up delay-4">
-
-            <!-- WhatsApp (Full Width) -->
-            <a href="https://wa.me/526563128628" target="_blank" rel="noopener noreferrer"
-                class="btn btn-whatsapp btn-full">
+        <div class="action-grid">
+            <a href="https://wa.me/526563128628" target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-full">
                 <i class='bx bxl-whatsapp'></i>
                 <span>WHATSAPP</span>
             </a>
 
-            <!-- Facebook (Full Width) -->
-            <a href="https://www.facebook.com/profile.php?id=61572922057205" target="_blank" rel="noopener noreferrer"
-                class="btn btn-facebook btn-full">
+            <a href="https://www.facebook.com/profile.php?id=61572922057205" target="_blank" rel="noopener noreferrer" class="btn btn-fb btn-full">
                 <i class='bx bxl-facebook-circle'></i>
                 <span>FACEBOOK</span>
             </a>
 
-            <!-- Ubicación Maps (Full Width) -->
-            <a href="https://maps.google.com/?q=GOMEZ+MORIN+8549+L8+LOS+CEDROS,Ciudad+Juárez,Mexico,32539"
-                target="_blank" rel="noopener noreferrer" class="btn btn-maps btn-full">
+            <a href="https://maps.google.com/?q=GOMEZ+MORIN+8549+L8+LOS+CEDROS,Ciudad+Juárez,Mexico,32539" target="_blank" rel="noopener noreferrer" class="btn btn-map btn-full">
                 <i class='bx bx-map'></i>
                 <span>CÓMO LLEGAR</span>
             </a>
 
-            <!-- Call (Half Width) -->
             <a href="tel:+526563128628" class="btn btn-glass">
                 <i class='bx bx-phone-call'></i>
                 <span>LLAMAR</span>
             </a>
 
-            <!-- Email (Half Width) -->
-            <a href="mailto:javigoqui@gmail.com" class="btn btn-glass">
+            <!-- Updated Email -->
+            <a href="mailto:jgonzalez@grupoarinco.mx" class="btn btn-glass">
                 <i class='bx bx-envelope'></i>
                 <span>CORREO</span>
             </a>
 
-            <!-- Save Contact (Full Width Secondary) -->
-            <a href="#" class="btn btn-secondary btn-full" id="saveContact">
+            <a href="#" class="btn btn-outline btn-full" id="saveContact">
                 <i class='bx bx-user-plus'></i>
                 <span>GUARDAR CONTACTO</span>
             </a>
-
         </div>
 
-        <div class="footer animate-up delay-4">
+        <div class="footer">
             &copy; 2026 <span>ARINCO GRUPO CONSTRUCTOR</span><br>Todos los derechos reservados.
         </div>
     </div>
 
-    <!-- Script to dynamically generate vCard -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img src="" alt="Fullscreen Image" id="lightbox-img">
+    </div>
+
     <script>
+        // Particles.js Initialization
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#d4af37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#d4af37", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
+            },
+            "retina_detect": true
+        });
+
         document.getElementById('saveContact').addEventListener('click', function (e) {
             e.preventDefault();
 
@@ -567,7 +542,7 @@ FN:Arq. Javier Gonzalez
 ORG:ARINCO Grupo Constructor
 TEL;TYPE=WORK,VOICE:+526563128628
 TEL;TYPE=CELL,VOICE:+526563128628
-EMAIL;TYPE=PREF,INTERNET:javigoqui@gmail.com
+EMAIL;TYPE=PREF,INTERNET:jgonzalez@grupoarinco.mx
 URL;TYPE=FACEBOOK:https://www.facebook.com/profile.php?id=61572922057205
 URL;TYPE=WHATSAPP:https://wa.me/526563128628
 ADR;TYPE=WORK:;;Gómez Morín 8549 L8 Los Cedros;Ciudad Juárez;Chihuahua;32539;Mexico
@@ -584,6 +559,70 @@ END:VCARD`;
 
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+        });
+
+        // Typewriter Effect
+        const words = ["GRUPO CONSTRUCTOR", "ARQUITECTURA PREMIUM", "REMODELACIONES", "PROYECTO Y CONSTRUCCIÓN"];
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typewriter-text').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                };
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typewriter-text').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) {
+                        i++;
+                    } else {
+                        i = 0;
+                    };
+                    typingEffect();
+                    return false;
+                };
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+
+        typingEffect();
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if(e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+            }
         });
     </script>
 </body>
